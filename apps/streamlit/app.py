@@ -19,7 +19,7 @@ from pathlib import Path
 import streamlit as st
 
 st.set_page_config(
-    page_title="シクフォニ推し活ツール",
+    page_title="シクフォニ推し活ツール（非公式）",
     page_icon="🎧",
     layout="wide",
 )
@@ -121,7 +121,7 @@ else:
 # ============================================================
 # 画面
 # ============================================================
-st.title("🎧 シクフォニ推し活ツール")
+st.title("🎧 シクフォニ推し活ツール（非公式）")
 
 tab_tiles, tab_cloud, tab_about = st.tabs(
     ["視聴TOP9タイル画像", "コメントのワードクラウド", "このアプリについて"]
