@@ -1,0 +1,44 @@
+name: CI
+
+# PR と main への push で、テストとアプリの読み込みを確認する。
+# 本体リポジトリと同じ考え方で、依存の更新でアプリが壊れたら
+# マージ前に気づけるようにする。
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: 日本語フォントを入れる
+        run: |
+          sudo apt-get update -qq
+          xargs -a packages.txt sudo apt-get install -y -qq
+
+      - name: 依存をインストール
+        run: pip install -r requirements.txt pytest
+
+      - name: テスト
+        run: pytest tests -q
+
+      - name: アプリが読み込めるか確認
+        # Streamlit のランタイム外なのでウィジェットは既定値になるが、
+        # import 崩れや構文エラーはここで落ちる
+        run: python apps/streamlit/app.py
