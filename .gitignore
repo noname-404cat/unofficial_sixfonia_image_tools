@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+
+# 環境変数
+.env
+.env.*
+
+# エディタ・OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# 個人データ（Takeout は絶対に置かない）
+Takeout/
+watch-history.json
+comments*.csv
+live*chats*.csv
+!tests/fixtures/comments.sample.csv
+
+# 生成物
+wordcloud_sample/
+*.png
